@@ -2,6 +2,8 @@
 """
     viterbi算法实现
 """
+import sys
+sys.path.append('../..')
 from pinyin.model import Emission, Transition
 
 
@@ -19,7 +21,7 @@ def viterbi(pinyin_list):
         pinyin = pinyin_list[i]
 
         prob_map = {}
-        for phrase, prob in V.iteritems():
+        for phrase, prob in V.items():
             character = phrase[-1]
             result = Transition.join_emission(pinyin, character)
             if not result:
@@ -37,9 +39,10 @@ def viterbi(pinyin_list):
 
 if __name__ == '__main__':
     while 1:
-        string = raw_input('input:')
+        string = input('input:')
         pinyin_list = string.split()
         V = viterbi(pinyin_list)
 
         for phrase, prob in sorted(V.items(), key=lambda d: d[1], reverse=True):
-            print phrase, prob
+            print(phrase)
+            print(prob)
